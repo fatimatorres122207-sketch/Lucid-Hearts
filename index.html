@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lucid Hearts — Otome Games</title>
+  <meta name="description" content="Lucid Hearts — story-first otome games with vivid characters, branching romance, and beautiful art." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fraunces:opsz,wght@8..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#FBEFF6">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Lucid Hearts home">
+        <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#FF8BA7"/>
+              <stop offset="1" stop-color="#A67BFF"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 21s-7.5-4.8-9.2-8.1C-0.2 6.3 6.2 3.8 9.4 6.3 11 7.8 12 9 12 9s1-1.2 2.6-2.7c3.2-2.5 9.6.0 6.6 6.6C19.5 16.2 12 21 12 21z" fill="url(#g1)"/>
+        </svg>
+        <span class="brand-text">Lucid Hearts</span>
+      </a>
+
+      <button id="navToggle" class="nav-toggle" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+
+      <nav id="primaryNav" class="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn-primary" href="#games">Play a demo</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>Lucid Hearts</h1>
+          <p class="tagline">Story-first otome games — heartfelt characters, branching choices, and stunning art.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#games">Browse games</a>
+            <a class="btn btn-ghost" href="#about">Our story</a>
+          </div>
+
+          <div class="newsletter-inline" aria-hidden="false">
+            <form id="newsletterForm" class="newsletter-form" autocomplete="on" novalidate>
+              <label for="newsletterEmail" class="sr-only">Email address</label>
+              <input id="newsletterEmail" name="email" type="email" placeholder="Enter your email for updates" required>
+              <button class="btn btn-secondary" type="submit">Subscribe</button>
+            </form>
+            <p class="small muted">No spam. Game updates & release dates only.</p>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <!-- Stylized mock art -->
+          <div class="art-card">
+            <svg viewBox="0 0 400 400" class="art-svg" role="img" aria-label="Decorative hearts">
+              <defs><linearGradient id="hgrad" x1="0" x2="1"><stop offset="0" stop-color="#FFD1E8"/><stop offset="1" stop-color="#C6B3FF"/></linearGradient></defs>
+              <rect width="100%" height="100%" rx="20" fill="url(#hgrad)"/>
+              <g transform="translate(40,50)" fill="white" opacity="0.9">
+                <path d="M120 80c0 33-27 50-27 50s-27-17-27-50a27 27 0 0 1 54 0z" fill="#FF9BBB" transform="translate(-20,-10)"/>
+                <ellipse cx="240" cy="160" rx="40" ry="45" fill="#8F7BFF" transform="rotate(-18 240 160)"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMES -->
+    <section id="games" class="section container">
+      <header class="section-header">
+        <h2>Our Games</h2>
+        <p class="muted">Romance, mystery, and choices that matter. Click a game to view details and try the free demo.</p>
+      </header>
+
+      <div id="gamesGrid" class="games-grid" role="list">
+        <!-- Game cards (JS will populate more if you want) -->
+        <article class="game-card" role="listitem" tabindex="0" data-game-id="1">
+          <div class="card-media" aria-hidden="true">
+            <svg class="game-thumb" viewBox="0 0 200 120">
+              <rect width="200" height="120" rx="12" fill="#F7E9F3"></rect>
+              <text x="12" y="70" font-size="18" font-family="Inter" fill="#9B6BAF">Moonlight Sonata</text>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>Moonlight Sonata</h3>
+            <p class="muted small">A secret orchestra. One city. Two hearts. Multiple endings.</p>
+            <div class="card-actions">
+              <button class="btn btn-outline view-btn" data-id="1">View</button>
+              <button class="btn btn-ghost demo-btn" data-id="1">Play Demo</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card" role="listitem" tabindex="0" data-game-id="2">
+          <div class="card-media" aria-hidden="true">
+            <svg class="game-thumb" viewBox="0 0 200 120">
+              <rect width="200" height="120" rx="12" fill="#E9F6FF"></rect>
+              <text x="12" y="70" font-size="18" font-family="Inter" fill="#3D7DB0">Crimson Promises</text>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>Crimson Promises</h3>
+            <p class="muted small">A rooftop mystery. Choices rewrite fate.</p>
+            <div class="card-actions">
+              <button class="btn btn-outline view-btn" data-id="2">View</button>
+              <button class="btn btn-ghost demo-btn" data-id="2">Play Demo</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card" role="listitem" tabindex="0" data-game-id="3">
+          <div class="card-media" aria-hidden="true">
+            <svg class="game-thumb" viewBox="0 0 200 120">
+              <rect width="200" height="120" rx="12" fill="#FFF5E6"></rect>
+              <text x="12" y="70" font-size="18" font-family="Inter" fill="#D87C2C">Stardust Letters</text>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>Stardust Letters</h3>
+            <p class="muted small">Letters from the past. An unexpected romance.</p>
+            <div class="card-actions">
+              <button class="btn btn-outline view-btn" data-id="3">View</button>
+              <button class="btn btn-ghost demo-btn" data-id="3">Play Demo</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section alt-bg">
+      <div class="container">
+        <div class="split">
+          <div>
+            <h2>About Lucid Hearts</h2>
+            <p>We craft character-driven romantic stories with branching choices, gorgeous visuals, and music that lingers. Founded by story-lovers, Lucid Hearts brings diverse romances and heartfelt endings to players everywhere.</p>
+            <ul class="bullets">
+              <li>Inclusive character design</li>
+              <li>Branching narratives with replay value</li>
+              <li>Beautiful art and original music</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Our Mission</h3>
+            <p>To create safe, meaningful, and emotionally resonant games that center love, growth, and community.</p>
+            <blockquote class="quote">“We believe the smallest choice can change a heart.”</blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="section container">
+      <header class="section-header">
+        <h2>Team</h2>
+        <p class="muted">Small, global, and creative — writers, artists, composers, and developers united by story.</p>
+      </header>
+
+      <div class="team-grid">
+        <figure class="team-member">
+          <div class="avatar">FT</div>
+          <figcaption>
+            <strong>Fatima Torres</strong>
+            <span class="muted small">Founder & Creative Director</span>
+            <p class="small muted">Story lead, narrative design & worldbuilding.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="team-member">
+          <div class="avatar">AR</div>
+          <figcaption>
+            <strong>Ari Renault</strong>
+            <span class="muted small">Lead Artist</span>
+            <p class="small muted">Character art & concept design.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="team-member">
+          <div class="avatar">JM</div>
+          <figcaption>
+            <strong>Jae Min</strong>
+            <span class="muted small">Composer</span>
+            <p class="small muted">Original soundtrack & sound design.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section alt-bg">
+      <div class="container contact-grid">
+        <div>
+          <h2>Contact & Partnerships</h2>
+          <p class="muted">For media, partnerships, or licensing, reach out below.</p>
+          <ul class="contact-info">
+            <li><strong>Email:</strong> <a href="mailto:hello@lucidhearts.games">hello@lucidhearts.games</a></li>
+            <li><strong>Twitter:</strong> <a href="https://twitter.com" target="_blank" rel="noopener">twitter.com/lucidhearts</a></li>
+          </ul>
+        </div>
+
+        <form id="contactForm" class="contact-form" aria-live="polite" novalidate>
+          <label class="sr-only" for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required>
+
+          <label class="sr-only" for="email">Your email</label>
+          <input id="email" name="email" type="email" placeholder="Your email" required>
+
+          <label class="sr-only" for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell us about what you'd like to talk about..." required></textarea>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Send Message</button>
+            <button class="btn btn-ghost" type="reset">Reset</button>
+          </div>
+          <p class="small muted">This contact form is front-end only. It will open your email client with the message when submitted.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Lucid Hearts — All rights reserved.</p>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#tos">Terms</a></li>
+          <li><a href="#support">Support</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Game detail modal -->
+  <div id="gameModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-dismiss="true"></div>
+    <div class="modal-panel" role="document">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-content">
+        <h3 id="modalTitle">Game title</h3>
+        <p id="modalDesc" class="muted">Longer description of the game, characters, music, and choices.</p>
+        <div id="modalFeatures" class="modal-features"></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary demo-play">Play Demo</button>
+          <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Wishlist / Follow</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
