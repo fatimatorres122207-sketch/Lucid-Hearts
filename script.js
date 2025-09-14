@@ -1,27 +1,26 @@
 // Lucid Hearts frontend interactions
 document.addEventListener('DOMContentLoaded', () => {
-  // Fill current year
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // Fill year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
   // Mobile nav toggle
   const navToggle = document.getElementById('navToggle');
   const primaryNav = document.getElementById('primaryNav');
 
-  navToggle?.addEventListener('click', () => {
+  navToggle.addEventListener('click', () => {
     const expanded = navToggle.getAttribute('aria-expanded') === 'true';
     navToggle.setAttribute('aria-expanded', String(!expanded));
     primaryNav.style.display = expanded ? 'none' : 'block';
   });
 
   // Smooth anchor scrolling
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href');
-      const target = document.querySelector(targetId);
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.scrollIntoView({behavior: 'smooth', block: 'start'});
+        // close mobile nav if open
         if (window.innerWidth <= 900) {
           primaryNav.style.display = 'none';
           navToggle.setAttribute('aria-expanded', 'false');
@@ -30,12 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Games modal logic
+  // Modal logic for games
   const modal = document.getElementById('gameModal');
   const modalTitle = document.getElementById('modalTitle');
   const modalDesc = document.getElementById('modalDesc');
   const modalFeatures = document.getElementById('modalFeatures');
-  const demoPlayBtn = modal.querySelector('.demo-play');
+  const demoPlayBtn = document.querySelector('.demo-play');
 
   const games = {
     1: {
@@ -58,103 +57,107 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Handle game card clicks (use data-game-id on article elements)
-  document.querySelectorAll('[data-game-id]').forEach(card => {
-    card.addEventListener('click', () => {
-      const id = card.dataset.gameId;
+  // Open modal on view buttons
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = btn.dataset.id;
       openGameModal(id);
-    });
-
-    card.setAttribute('tabindex', '0');
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') openGameModal(card.dataset.gameId);
     });
   });
 
-  function openGameModal(id) {
+  // Also allow keyboard "Enter" on card
+  document.querySelectorAll('.game-card').forEach(card => {
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        openGameModal(card.dataset.gameId);
+      }
+    });
+  });
+
+  // Demo play buttons (front-end demo)
+  document.querySelectorAll('.demo-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = btn.dataset.id;
+      // For this static site we show a tiny inline demo alert.
+      alert(`Launching demo for: ${games[id].title}\n\n(Static demo: imagine a short playable scene here.)`);
+    });
+  });
+
+  // Modal helper
+  function openGameModal(id){
     const game = games[id];
     if (!game) return;
-
     modalTitle.textContent = game.title;
     modalDesc.textContent = game.desc;
     modalFeatures.innerHTML = '';
     game.features.forEach(f => {
-      const item = document.createElement('div');
-      item.className = 'small muted';
-      item.textContent = '• ' + f;
-      modalFeatures.appendChild(item);
+      const el = document.createElement('div');
+      el.className = 'small muted';
+      el.textContent = '• ' + f;
+      modalFeatures.appendChild(el);
     });
-
     demoPlayBtn.onclick = () => {
-      alert(`Launching demo for: ${game.title}\n\n(Static demo placeholder)`);
+      alert(`Demo: ${game.title} — (static demo).`);
     };
-
-    modal.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-hidden','false');
+    // trap focus minimally
     document.body.style.overflow = 'hidden';
-    modal.querySelector('.modal-close')?.focus();
   }
 
-  function closeModal() {
-    modal.setAttribute('aria-hidden', 'true');
+  // Close modal actions
+  modal.querySelector('.modal-close').addEventListener('click', closeModal);
+  modal.querySelector('.modal-backdrop')?.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
+  });
+
+  function closeModal(){
+    modal.setAttribute('aria-hidden','true');
     document.body.style.overflow = '';
   }
 
-  // Close modal
-  modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
-  modal.querySelector('.modal-backdrop')?.addEventListener('click', closeModal);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
-      closeModal();
-    }
-  });
-
-  // Newsletter form
+  // Newsletter form (front-end)
   const newsletterForm = document.getElementById('newsletterForm');
-  newsletterForm?.addEventListener('submit', (e) => {
+  newsletterForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = newsletterForm.email.value.trim();
     if (!validateEmail(email)) {
       alert('Please enter a valid email address.');
       return;
     }
+    // Pretend subscription succeeded
     alert(`Thanks — ${email} subscribed to Lucid Hearts updates!`);
     newsletterForm.reset();
   });
 
-  // Contact form
+  // Contact form (mail client fallback)
   const contactForm = document.getElementById('contactForm');
-  contactForm?.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = contactForm.name.value.trim();
     const email = contactForm.email.value.trim();
     const message = contactForm.message.value.trim();
-
     if (!name || !email || !message) {
-      alert('Please fill in all fields.');
+      alert('Please fill all fields.');
       return;
     }
-
     if (!validateEmail(email)) {
       alert('Please enter a valid email address.');
       return;
     }
-
-    const subject = encodeURIComponent(`Contact from ${name}`);
+    // Construct mailto (front-end fallback)
+    const subject = encodeURIComponent(`Contact from site: ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
     window.location.href = `mailto:hello@lucidhearts.games?subject=${subject}&body=${body}`;
   });
 
-  function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+  // Simple email regex
+  function validateEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) }
 
-  // Accessibility: reset nav on resize
+  // Accessibility: collapse nav when resizing up
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 900) {
-      primaryNav.style.display = 'block';
-      navToggle.setAttribute('aria-expanded', 'false');
-    } else {
-      primaryNav.style.display = 'none';
-    }
+    if (window.innerWidth > 900) primaryNav.style.display = 'block';
+    if (window.innerWidth <= 900) primaryNav.style.display = 'none';
   });
+
 });
